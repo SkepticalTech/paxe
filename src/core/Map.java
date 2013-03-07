@@ -24,7 +24,7 @@ import spawn.Kit;
 public class Map {
 
     public String name, objective, version, protocol;
-    public ComplexList authors, contributors, teams, kits;
+    public ComplexList authors, contributors, rules, teams, kits;
     public ComplexList filters, regions, spawns, portals;
     public Element root;
     //rules, teams;
@@ -32,6 +32,7 @@ public class Map {
     public Map() {
         authors = new ComplexList("authors");
         contributors = new ComplexList("contributors");
+        rules = new ComplexList("rules");
         teams = new ComplexList("teams");
         kits = new ComplexList("kits");
         regions = new ComplexList("regions");
@@ -95,8 +96,6 @@ public class Map {
             pce.printStackTrace();
         } catch (Exception e) {
             System.out.println(e);
-
-
         }
     }
 }

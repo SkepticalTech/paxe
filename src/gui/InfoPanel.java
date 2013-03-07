@@ -6,7 +6,7 @@ package gui;
 
 /**
  *
- * @author Chris
+ * @author Skeptical_Tech
  */
 public class InfoPanel extends javax.swing.JPanel {
 

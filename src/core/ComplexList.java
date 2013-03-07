@@ -13,7 +13,6 @@ import org.w3c.dom.Element;
 
 public class ComplexList extends ArrayList implements IOutputtable {
     protected String tagname;
-    //public ArrayList<IOutputtable> list;
     
     public ComplexList(){
         super();
