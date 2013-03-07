@@ -27,174 +27,166 @@ public class InfoPanel extends javax.swing.JPanel {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
+        BasicPanel = new javax.swing.JPanel();
+        NamePanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
+        VersionPanel = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
+        PGMVerPanel = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        ObjectivePanel = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(50, 0), new java.awt.Dimension(50, 0), new java.awt.Dimension(50, 32767));
-        jLabel7 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
+        jTextArea1 = new javax.swing.JTextArea();
+        AuthorPanel = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jList3 = new javax.swing.JList();
+        jList1 = new javax.swing.JList();
+        jTextField4 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        ContributorPanel = new javax.swing.JPanel();
+        RulesPanel = new javax.swing.JPanel();
 
         setMinimumSize(new java.awt.Dimension(700, 500));
-        setLayout(new java.awt.GridBagLayout());
+        setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        BasicPanel.setLayout(new java.awt.GridBagLayout());
+
         jLabel1.setText("Name:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        add(jLabel1, gridBagConstraints);
+        NamePanel.add(jLabel1);
 
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel2.setText("Version:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        add(jLabel2, gridBagConstraints);
-
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel3.setText("PGM Ver:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        add(jLabel3, gridBagConstraints);
-
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel5.setText("Objective:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        add(jLabel5, gridBagConstraints);
-
-        jTextField1.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jTextField1.setColumns(28);
         jTextField1.setText("jTextField1");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        add(jTextField1, gridBagConstraints);
+        jTextField1.setToolTipText("The name of the map.");
+        jTextField1.setMinimumSize(new java.awt.Dimension(150, 22));
+        NamePanel.add(jTextField1);
 
-        jTextField2.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        jTextField2.setText("jTextField2");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.ipady = 5;
+        BasicPanel.add(NamePanel, gridBagConstraints);
+
+        jLabel2.setText("Version:");
+        VersionPanel.add(jLabel2);
+
+        jTextField2.setText("jTextField1");
+        jTextField2.setToolTipText("The name of the map.");
+        VersionPanel.add(jTextField2);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
-        add(jTextField2, gridBagConstraints);
+        gridBagConstraints.ipady = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        BasicPanel.add(VersionPanel, gridBagConstraints);
 
-        jTextField3.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        jTextField3.setText("jTextField3");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
-        add(jTextField3, gridBagConstraints);
+        PGMVerPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
-        jTextField4.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        jTextField4.setText("jTextField4");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
-        add(jTextField4, gridBagConstraints);
+        jLabel3.setText("PGM Version:");
+        PGMVerPanel.add(jLabel3);
 
-        jLabel4.setText("Authors");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        add(jLabel4, gridBagConstraints);
+        jTextField3.setColumns(4);
+        jTextField3.setText("1.3.0");
+        jTextField3.setToolTipText("The name of the map.");
+        PGMVerPanel.add(jTextField3);
 
-        jLabel6.setText("Contributors");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        add(jLabel6, gridBagConstraints);
-        add(filler1, new java.awt.GridBagConstraints());
-
-        jLabel7.setText("Rules");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 2;
-        add(jLabel7, gridBagConstraints);
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.ipady = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        BasicPanel.add(PGMVerPanel, gridBagConstraints);
+
+        ObjectivePanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+
+        jLabel4.setText("Objective:");
+        ObjectivePanel.add(jLabel4);
+
+        jTextArea1.setColumns(35);
+        jTextArea1.setRows(2);
+        jScrollPane1.setViewportView(jTextArea1);
+
+        ObjectivePanel.add(jScrollPane1);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipady = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        BasicPanel.add(ObjectivePanel, gridBagConstraints);
+
+        add(BasicPanel);
+
+        AuthorPanel.setLayout(new java.awt.GridBagLayout());
+
+        jLabel5.setText("Authors");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        AuthorPanel.add(jLabel5, gridBagConstraints);
 
         jList1.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        jList1.setMaximumSize(new java.awt.Dimension(50, 90));
-        jList1.setMinimumSize(new java.awt.Dimension(50, 90));
-        jList1.setPreferredSize(new java.awt.Dimension(50, 90));
-        jList1.setVisibleRowCount(4);
-        jScrollPane1.setViewportView(jList1);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.gridheight = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        add(jScrollPane1, gridBagConstraints);
-
-        jList2.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jList2.setVisibleRowCount(4);
-        jScrollPane2.setViewportView(jList2);
+        jList1.setVisibleRowCount(5);
+        jScrollPane2.setViewportView(jList1);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        add(jScrollPane2, gridBagConstraints);
+        AuthorPanel.add(jScrollPane2, gridBagConstraints);
 
-        jList3.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jList3.setVisibleRowCount(4);
-        jScrollPane3.setViewportView(jList3);
+        jTextField4.setText("jTextField4");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        AuthorPanel.add(jTextField4, gridBagConstraints);
 
+        jButton1.setText("jButton1");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        AuthorPanel.add(jButton1, gridBagConstraints);
+
+        jButton2.setText("jButton2");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.gridheight = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        add(jScrollPane3, gridBagConstraints);
+        gridBagConstraints.gridy = 2;
+        AuthorPanel.add(jButton2, gridBagConstraints);
+
+        add(AuthorPanel);
+        add(ContributorPanel);
+        add(RulesPanel);
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.Box.Filler filler1;
+    private javax.swing.JPanel AuthorPanel;
+    private javax.swing.JPanel BasicPanel;
+    private javax.swing.JPanel ContributorPanel;
+    private javax.swing.JPanel NamePanel;
+    private javax.swing.JPanel ObjectivePanel;
+    private javax.swing.JPanel PGMVerPanel;
+    private javax.swing.JPanel RulesPanel;
+    private javax.swing.JPanel VersionPanel;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JList jList1;
-    private javax.swing.JList jList2;
-    private javax.swing.JList jList3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
