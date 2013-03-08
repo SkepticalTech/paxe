@@ -17,6 +17,39 @@ public class InfoPanel extends javax.swing.JPanel {
         initComponents();
     }
 
+    //Gets and sets
+    public String getNameField() {
+        return NameField.getText();
+    }
+
+    public void setNameField(String txt) {
+        NameField.setText(txt);
+    }
+
+    public String getPGMVersionField() {
+        return PGMVersionField.getText();
+    }
+
+    public void setPGMVersionField(String txt) {
+        PGMVersionField.setText(txt);
+    }
+
+    public String getVersionField() {
+        return VersionField.getText();
+    }
+
+    public void setVersionField(String txt) {
+        VersionField.setText(txt);
+    }
+
+    public String getObjectiveField() {
+        return ObjectiveField.getText();
+    }
+
+    public void setObjectiveField(String txt) {
+        ObjectiveField.setText(txt);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,25 +63,25 @@ public class InfoPanel extends javax.swing.JPanel {
         BasicPanel = new javax.swing.JPanel();
         NamePanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        NameField = new javax.swing.JTextField();
         VersionPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        VersionField = new javax.swing.JTextField();
         PGMVerPanel = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        PGMVersionField = new javax.swing.JTextField();
         ObjectivePanel = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        ObjectiveField = new javax.swing.JTextArea();
         AuthorPanel = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
-        jTextField4 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        ContributorPanel = new javax.swing.JPanel();
+        AuthorList = new javax.swing.JList();
+        AuthorField = new javax.swing.JTextField();
+        AddAuthorButton = new javax.swing.JButton();
+        RemoveAuthorButton = new javax.swing.JButton();
+        EditAuthorButton = new javax.swing.JButton();
         RulesPanel = new javax.swing.JPanel();
 
         setMinimumSize(new java.awt.Dimension(700, 500));
@@ -59,11 +92,16 @@ public class InfoPanel extends javax.swing.JPanel {
         jLabel1.setText("Name:");
         NamePanel.add(jLabel1);
 
-        jTextField1.setColumns(28);
-        jTextField1.setText("jTextField1");
-        jTextField1.setToolTipText("The name of the map.");
-        jTextField1.setMinimumSize(new java.awt.Dimension(150, 22));
-        NamePanel.add(jTextField1);
+        NameField.setColumns(28);
+        NameField.setText("New Map");
+        NameField.setToolTipText("The name of the map.");
+        NameField.setMinimumSize(new java.awt.Dimension(150, 22));
+        NameField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NameFieldActionPerformed(evt);
+            }
+        });
+        NamePanel.add(NameField);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -73,9 +111,10 @@ public class InfoPanel extends javax.swing.JPanel {
         jLabel2.setText("Version:");
         VersionPanel.add(jLabel2);
 
-        jTextField2.setText("jTextField1");
-        jTextField2.setToolTipText("The name of the map.");
-        VersionPanel.add(jTextField2);
+        VersionField.setColumns(4);
+        VersionField.setText("1.0");
+        VersionField.setToolTipText("The version of the map");
+        VersionPanel.add(VersionField);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -89,10 +128,10 @@ public class InfoPanel extends javax.swing.JPanel {
         jLabel3.setText("PGM Version:");
         PGMVerPanel.add(jLabel3);
 
-        jTextField3.setColumns(4);
-        jTextField3.setText("1.3.0");
-        jTextField3.setToolTipText("The name of the map.");
-        PGMVerPanel.add(jTextField3);
+        PGMVersionField.setColumns(4);
+        PGMVersionField.setText("1.3.0");
+        PGMVersionField.setToolTipText("The Plugin Version (Currently 1.3.0).");
+        PGMVerPanel.add(PGMVersionField);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -106,9 +145,9 @@ public class InfoPanel extends javax.swing.JPanel {
         jLabel4.setText("Objective:");
         ObjectivePanel.add(jLabel4);
 
-        jTextArea1.setColumns(35);
-        jTextArea1.setRows(2);
-        jScrollPane1.setViewportView(jTextArea1);
+        ObjectiveField.setColumns(35);
+        ObjectiveField.setRows(2);
+        jScrollPane1.setViewportView(ObjectiveField);
 
         ObjectivePanel.add(jScrollPane1);
 
@@ -130,13 +169,13 @@ public class InfoPanel extends javax.swing.JPanel {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         AuthorPanel.add(jLabel5, gridBagConstraints);
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
+        AuthorList.setVisibleRowCount(5);
+        AuthorList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                AuthorListValueChanged(evt);
+            }
         });
-        jList1.setVisibleRowCount(5);
-        jScrollPane2.setViewportView(jList1);
+        jScrollPane2.setViewportView(AuthorList);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -145,51 +184,85 @@ public class InfoPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         AuthorPanel.add(jScrollPane2, gridBagConstraints);
 
-        jTextField4.setText("jTextField4");
+        AuthorField.setColumns(16);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        AuthorPanel.add(jTextField4, gridBagConstraints);
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        AuthorPanel.add(AuthorField, gridBagConstraints);
 
-        jButton1.setText("jButton1");
+        AddAuthorButton.setText("Add");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        AuthorPanel.add(AddAuthorButton, gridBagConstraints);
+
+        RemoveAuthorButton.setText("Edit");
+        RemoveAuthorButton.setEnabled(false);
+        RemoveAuthorButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RemoveAuthorButtonActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
-        AuthorPanel.add(jButton1, gridBagConstraints);
+        gridBagConstraints.gridy = 3;
+        AuthorPanel.add(RemoveAuthorButton, gridBagConstraints);
 
-        jButton2.setText("jButton2");
+        EditAuthorButton.setText("Remove");
+        EditAuthorButton.setEnabled(false);
+        EditAuthorButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EditAuthorButtonActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 2;
-        AuthorPanel.add(jButton2, gridBagConstraints);
+        gridBagConstraints.gridy = 3;
+        AuthorPanel.add(EditAuthorButton, gridBagConstraints);
 
         add(AuthorPanel);
-        add(ContributorPanel);
         add(RulesPanel);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void RemoveAuthorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoveAuthorButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RemoveAuthorButtonActionPerformed
+
+    private void NameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NameFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NameFieldActionPerformed
+
+    private void EditAuthorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditAuthorButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_EditAuthorButtonActionPerformed
+
+    private void AuthorListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_AuthorListValueChanged
+
+    }//GEN-LAST:event_AuthorListValueChanged
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AddAuthorButton;
+    private javax.swing.JTextField AuthorField;
+    private javax.swing.JList AuthorList;
     private javax.swing.JPanel AuthorPanel;
     private javax.swing.JPanel BasicPanel;
-    private javax.swing.JPanel ContributorPanel;
+    private javax.swing.JButton EditAuthorButton;
+    private javax.swing.JTextField NameField;
     private javax.swing.JPanel NamePanel;
+    private javax.swing.JTextArea ObjectiveField;
     private javax.swing.JPanel ObjectivePanel;
     private javax.swing.JPanel PGMVerPanel;
+    private javax.swing.JTextField PGMVersionField;
+    private javax.swing.JButton RemoveAuthorButton;
     private javax.swing.JPanel RulesPanel;
+    private javax.swing.JTextField VersionField;
     private javax.swing.JPanel VersionPanel;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JList jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
 }
