@@ -1,11 +1,7 @@
 package core;
 
-import info.Armor;
-import info.Author;
-import info.Enchantment;
-import info.Item;
-import info.Potion;
-import info.Team;
+import info.*;
+import gui.*;
 import region.Circle;
 import region.Region;
 import spawn.Kit;
@@ -22,7 +18,9 @@ public class PAXE {
     /**
      * @param args the command line arguments
      */
+    /*
     public static void main(String[] args) {
+        
         Map neato = new Map();
         neato.name = "Sample Map";
         neato.objective = "Do something or other";
@@ -31,6 +29,8 @@ public class PAXE {
 
         neato.authors.add(new Author("Fred Flintstone", "Yabadadadoo"));
         neato.contributors.add(new Author("Chuck Norris", true));
+        
+        neato.rules.add(new Rule("Use your head!"));
         neato.teams.add(new Team("Polka Dots", "Purple", 50));
         neato.teams.add(new Team("Plaid", "Red", 50));
 
@@ -57,5 +57,6 @@ public class PAXE {
         neato.regions.add(new Region("Region1"));
         neato.regions.add(new Circle("Circle1", 5, 4, 10));
         neato.output("output.xml");
-    }
+        
+    }*/
 }

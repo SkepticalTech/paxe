@@ -4,16 +4,28 @@
  */
 package gui;
 
-import core.PAXE;
+import core.*;
 
 public class MainFrame extends javax.swing.JFrame {
+
+    public Map curMap;
 
     /**
      * Creates new form MainFrame
      */
     public MainFrame() {
+        //Make a new map (for now, will be changed to load from saved, etc)
+        curMap = new Map();
         this.setTitle("PAXE v " + PAXE.version);
         initComponents();
+    }
+
+    public void runExport() {
+        curMap.setName(infoPanel.getNameField());
+        curMap.setPGMVersion(infoPanel.getPGMVersionField());
+        curMap.setVersion(infoPanel.getVersionField());
+        curMap.setObjective(infoPanel.getObjectiveField());
+        curMap.output("output.xml");
     }
 
     /**
@@ -26,7 +38,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jTabbedPane2 = new javax.swing.JTabbedPane();
-        infoPanel1 = new gui.InfoPanel();
+        infoPanel = new gui.InfoPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItemNew = new javax.swing.JMenuItem();
@@ -43,8 +55,9 @@ public class MainFrame extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(800, 600));
         getContentPane().setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
-        jTabbedPane2.setMaximumSize(null);
-        jTabbedPane2.addTab("tab1", infoPanel1);
+        jTabbedPane2.setMaximumSize(new java.awt.Dimension(705, 530));
+        jTabbedPane2.setPreferredSize(getPreferredSize());
+        jTabbedPane2.addTab("tab1", infoPanel);
 
         getContentPane().add(jTabbedPane2);
 
@@ -81,6 +94,11 @@ public class MainFrame extends javax.swing.JFrame {
         jMenu1.add(jMenuItemSaveAs);
 
         jMenuItemExport.setText("Export to Map.xml");
+        jMenuItemExport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemExportActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItemExport);
 
         jMenuItemExit.setText("Exit");
@@ -120,6 +138,10 @@ public class MainFrame extends javax.swing.JFrame {
         System.exit(0); //TODO: Make this more sensible, check if save neccesary
     }//GEN-LAST:event_jMenuItemExitActionPerformed
 
+    private void jMenuItemExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExportActionPerformed
+        runExport();
+    }//GEN-LAST:event_jMenuItemExportActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -155,7 +177,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private gui.InfoPanel infoPanel1;
+    private gui.InfoPanel infoPanel;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;

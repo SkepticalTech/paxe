@@ -11,7 +11,7 @@ import java.util.Iterator;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-public class ComplexList extends ArrayList implements IOutputtable {
+public class ComplexList<T> extends ArrayList<T> implements IOutputtable {
     protected String tagname;
     
     public ComplexList(){
