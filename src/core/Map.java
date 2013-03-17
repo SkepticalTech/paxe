@@ -28,6 +28,7 @@ public class Map {
     public ComplexList<Rule> rules;
     public ComplexList<Team> teams;
     public ComplexList<Kit> kits;
+    //TODO: priority queue for regions, need to put multiregion constructs after regular regions
     public ComplexList filters, regions, spawns, portals;
     public Element root;
     //rules, teams;

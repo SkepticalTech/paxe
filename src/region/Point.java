@@ -9,6 +9,11 @@ class Point {
     protected int x, y, z;
     protected boolean is3D = false;
 
+    //for a default point, 2d/3d
+    public Point(boolean is3D){
+        this.is3D = is3D;
+    }
+    
     //for a 3d point
     public Point(int x, int y, int z) {
         setX(x);
@@ -55,6 +60,7 @@ class Point {
      * @return the z
      */
     public int getZ() {
+        //TODO: Error handling here if it is not a 3d point
         return z;
     }
 
@@ -62,7 +68,9 @@ class Point {
      * @param z the z to set
      */
     public void setZ(int z) {
-        this.z = z;
+        if(is3D){
+            this.z = z;
+        }
     }
 
     public String toString() {
