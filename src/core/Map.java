@@ -4,6 +4,9 @@
 package core;
 
 import info.*;
+import gui.*;
+import com.thoughtworks.xstream.*;
+import com.thoughtworks.xstream.io.xml.StaxDriver;
 import helpers.TNode;
 import java.io.File;
 import java.io.PrintWriter;
@@ -101,6 +104,11 @@ public class Map {
         } catch (Exception e) {
             System.out.println(e);
         }
+    }
+    //Returns a String of serialized XML for saving purposes
+    public String serializeXml(){
+        XStream xstream = new XStream(new StaxDriver());
+        return xstream.toXML(this);
     }
 
     public String getName() {

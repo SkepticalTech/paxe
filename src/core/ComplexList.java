@@ -5,9 +5,8 @@
 
 package core;
 
-import helpers.IOutputtable;
-import java.util.ArrayList;
-import java.util.Iterator;
+import helpers.*;
+import java.util.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 

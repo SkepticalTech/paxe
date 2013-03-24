@@ -77,7 +77,7 @@ public class InfoPanel extends javax.swing.JPanel {
         AuthorPanel = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        AuthorList = new javax.swing.JList();
+        jTable1 = new javax.swing.JTable();
         AuthorField = new javax.swing.JTextField();
         AddAuthorButton = new javax.swing.JButton();
         RemoveAuthorButton = new javax.swing.JButton();
@@ -169,20 +169,37 @@ public class InfoPanel extends javax.swing.JPanel {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         AuthorPanel.add(jLabel5, gridBagConstraints);
 
-        AuthorList.setVisibleRowCount(5);
-        AuthorList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                AuthorListValueChanged(evt);
+        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane2.setPreferredSize(new java.awt.Dimension(352, 150));
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Author", "Contribution"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(AuthorList);
+        jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        jTable1.setAutoscrolls(false);
+        jTable1.setColumnSelectionAllowed(true);
+        jTable1.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(jTable1);
+        jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(150);
+        jTable1.getColumnModel().getColumn(1).setPreferredWidth(250);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        AuthorPanel.add(jScrollPane2, gridBagConstraints);
+        AuthorPanel.add(jScrollPane2, new java.awt.GridBagConstraints());
 
         AuthorField.setColumns(16);
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -237,13 +254,9 @@ public class InfoPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_EditAuthorButtonActionPerformed
 
-    private void AuthorListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_AuthorListValueChanged
-
-    }//GEN-LAST:event_AuthorListValueChanged
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddAuthorButton;
     private javax.swing.JTextField AuthorField;
-    private javax.swing.JList AuthorList;
     private javax.swing.JPanel AuthorPanel;
     private javax.swing.JPanel BasicPanel;
     private javax.swing.JButton EditAuthorButton;
@@ -264,5 +277,6 @@ public class InfoPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
