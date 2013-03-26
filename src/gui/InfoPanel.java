@@ -4,11 +4,15 @@
  */
 package gui;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Skeptical_Tech
  */
 public class InfoPanel extends javax.swing.JPanel {
+
+    public ArrayList<String> authors = new ArrayList<String>();
 
     /**
      * Creates new form InfoPanel
@@ -49,6 +53,37 @@ public class InfoPanel extends javax.swing.JPanel {
     public void setObjectiveField(String txt) {
         ObjectiveField.setText(txt);
     }
+    /*
+     * Input Dialog Methods and Variables
+     */
+    private int dialog_mode = 0; // = 0 author, 1 for contributor, 2 for rule
+    private boolean dialog_edit; // = true for edit mode, false for add mode
+
+    private void displayDialog(int mode, boolean edit) {
+        InputDialog.setLocationRelativeTo(this);
+        InputDialogLabel2.setVisible(true);
+        InputDialogField2.setVisible(true);
+        switch (mode) {
+            case 0: //Author
+                InputDialogLabel1.setText("Author:");
+                InputDialogLabel2.setText("Contribution:");
+                break;
+            case 1: //Contributor
+                InputDialogLabel1.setText("Contributor:");
+                InputDialogLabel2.setText("Contribution:");
+                break;
+            case 2: //Rule
+                InputDialogLabel1.setText("Rule:");
+                InputDialogLabel2.setVisible(false);
+                InputDialogField2.setVisible(false);
+                break;
+
+        }
+        if(edit){
+            Ok.setText(edit ? "Edit" : "False");
+        }
+        InputDialog.setVisible(true);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -60,6 +95,13 @@ public class InfoPanel extends javax.swing.JPanel {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
+        InputDialog = new javax.swing.JDialog();
+        InputDialogField1 = new javax.swing.JTextField();
+        InputDialogField2 = new javax.swing.JTextField();
+        InputDialogLabel1 = new javax.swing.JLabel();
+        InputDialogLabel2 = new javax.swing.JLabel();
+        Ok = new javax.swing.JButton();
+        Cancel = new javax.swing.JButton();
         BasicPanel = new javax.swing.JPanel();
         NamePanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -74,15 +116,84 @@ public class InfoPanel extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         ObjectiveField = new javax.swing.JTextArea();
+        RulesPanel = new javax.swing.JPanel();
         AuthorPanel = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        AuthorField = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        AuthorList = new javax.swing.JList();
         AddAuthorButton = new javax.swing.JButton();
         RemoveAuthorButton = new javax.swing.JButton();
         EditAuthorButton = new javax.swing.JButton();
-        RulesPanel = new javax.swing.JPanel();
+
+        InputDialog.setMinimumSize(new java.awt.Dimension(400, 150));
+        InputDialog.setModal(true);
+        InputDialog.setPreferredSize(new java.awt.Dimension(400, 150));
+        InputDialog.setResizable(false);
+
+        InputDialogField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                InputDialogField1ActionPerformed(evt);
+            }
+        });
+
+        InputDialogField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                InputDialogField2ActionPerformed(evt);
+            }
+        });
+
+        InputDialogLabel1.setText("Author:");
+
+        InputDialogLabel2.setText("Contribution:");
+
+        Ok.setText("Add");
+
+        Cancel.setText("Cancel");
+        Cancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CancelActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout InputDialogLayout = new javax.swing.GroupLayout(InputDialog.getContentPane());
+        InputDialog.getContentPane().setLayout(InputDialogLayout);
+        InputDialogLayout.setHorizontalGroup(
+            InputDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(InputDialogLayout.createSequentialGroup()
+                .addGroup(InputDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(InputDialogLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(InputDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(InputDialogLabel2)
+                            .addComponent(InputDialogLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(InputDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(InputDialogField1)
+                            .addComponent(InputDialogField2, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)))
+                    .addGroup(InputDialogLayout.createSequentialGroup()
+                        .addGap(111, 111, 111)
+                        .addComponent(Ok)
+                        .addGap(64, 64, 64)
+                        .addComponent(Cancel)))
+                .addContainerGap(84, Short.MAX_VALUE))
+        );
+        InputDialogLayout.setVerticalGroup(
+            InputDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(InputDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(InputDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(InputDialogLabel1)
+                    .addComponent(InputDialogField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(InputDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(InputDialogLabel2)
+                    .addComponent(InputDialogField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addGroup(InputDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Ok)
+                    .addComponent(Cancel))
+                .addContainerGap())
+        );
 
         setMinimumSize(new java.awt.Dimension(700, 500));
         setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
@@ -161,58 +272,20 @@ public class InfoPanel extends javax.swing.JPanel {
         BasicPanel.add(ObjectivePanel, gridBagConstraints);
 
         add(BasicPanel);
-
-        AuthorPanel.setLayout(new java.awt.GridBagLayout());
+        add(RulesPanel);
 
         jLabel5.setText("Authors");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        AuthorPanel.add(jLabel5, gridBagConstraints);
 
-        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane2.setPreferredSize(new java.awt.Dimension(352, 150));
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Author", "Contribution"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        jTable1.setAutoscrolls(false);
-        jTable1.setColumnSelectionAllowed(true);
-        jTable1.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setViewportView(jTable1);
-        jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jTable1.getColumnModel().getColumn(0).setPreferredWidth(150);
-        jTable1.getColumnModel().getColumn(1).setPreferredWidth(250);
-
-        AuthorPanel.add(jScrollPane2, new java.awt.GridBagConstraints());
-
-        AuthorField.setColumns(16);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        AuthorPanel.add(AuthorField, gridBagConstraints);
+        AuthorList.setFixedCellHeight(200);
+        AuthorList.setVisibleRowCount(4);
+        jScrollPane3.setViewportView(AuthorList);
 
         AddAuthorButton.setText("Add");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        AuthorPanel.add(AddAuthorButton, gridBagConstraints);
+        AddAuthorButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AddAuthorButtonActionPerformed(evt);
+            }
+        });
 
         RemoveAuthorButton.setText("Edit");
         RemoveAuthorButton.setEnabled(false);
@@ -221,10 +294,6 @@ public class InfoPanel extends javax.swing.JPanel {
                 RemoveAuthorButtonActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
-        AuthorPanel.add(RemoveAuthorButton, gridBagConstraints);
 
         EditAuthorButton.setText("Remove");
         EditAuthorButton.setEnabled(false);
@@ -233,37 +302,90 @@ public class InfoPanel extends javax.swing.JPanel {
                 EditAuthorButtonActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 3;
-        AuthorPanel.add(EditAuthorButton, gridBagConstraints);
+
+        javax.swing.GroupLayout AuthorPanelLayout = new javax.swing.GroupLayout(AuthorPanel);
+        AuthorPanel.setLayout(AuthorPanelLayout);
+        AuthorPanelLayout.setHorizontalGroup(
+            AuthorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(AuthorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(AuthorPanelLayout.createSequentialGroup()
+                    .addComponent(AddAuthorButton)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(RemoveAuthorButton)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(EditAuthorButton)
+                    .addGap(57, 57, 57)))
+            .addGroup(AuthorPanelLayout.createSequentialGroup()
+                .addGap(102, 102, 102)
+                .addComponent(jLabel5))
+        );
+        AuthorPanelLayout.setVerticalGroup(
+            AuthorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(AuthorPanelLayout.createSequentialGroup()
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addGroup(AuthorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(RemoveAuthorButton)
+                    .addComponent(AddAuthorButton)
+                    .addComponent(EditAuthorButton)))
+        );
 
         add(AuthorPanel);
-        add(RulesPanel);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void RemoveAuthorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoveAuthorButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_RemoveAuthorButtonActionPerformed
 
     private void NameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NameFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_NameFieldActionPerformed
 
     private void EditAuthorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditAuthorButtonActionPerformed
-        // TODO add your handling code here:
+        if (AuthorList.getSelectedIndex() != -1) {
+            displayDialog(0, true);
+        }
     }//GEN-LAST:event_EditAuthorButtonActionPerformed
 
+    private void RemoveAuthorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoveAuthorButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RemoveAuthorButtonActionPerformed
+
+    private void AddAuthorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddAuthorButtonActionPerformed
+        displayDialog(0, false);
+    }//GEN-LAST:event_AddAuthorButtonActionPerformed
+
+    private void CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelActionPerformed
+        InputDialog.setVisible(false);
+        InputDialogField1.setText("");
+        InputDialogField2.setText("");
+        InputDialogLabel1.setText("");
+        InputDialogLabel2.setText("");
+    }//GEN-LAST:event_CancelActionPerformed
+
+    private void InputDialogField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InputDialogField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_InputDialogField2ActionPerformed
+
+    private void InputDialogField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InputDialogField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_InputDialogField1ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddAuthorButton;
-    private javax.swing.JTextField AuthorField;
+    private javax.swing.JList AuthorList;
     private javax.swing.JPanel AuthorPanel;
     private javax.swing.JPanel BasicPanel;
+    private javax.swing.JButton Cancel;
     private javax.swing.JButton EditAuthorButton;
+    private javax.swing.JDialog InputDialog;
+    private javax.swing.JTextField InputDialogField1;
+    private javax.swing.JTextField InputDialogField2;
+    private javax.swing.JLabel InputDialogLabel1;
+    private javax.swing.JLabel InputDialogLabel2;
     private javax.swing.JTextField NameField;
     private javax.swing.JPanel NamePanel;
     private javax.swing.JTextArea ObjectiveField;
     private javax.swing.JPanel ObjectivePanel;
+    private javax.swing.JButton Ok;
     private javax.swing.JPanel PGMVerPanel;
     private javax.swing.JTextField PGMVersionField;
     private javax.swing.JButton RemoveAuthorButton;
@@ -276,7 +398,6 @@ public class InfoPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JScrollPane jScrollPane3;
     // End of variables declaration//GEN-END:variables
 }

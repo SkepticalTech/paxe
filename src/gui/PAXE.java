@@ -7,15 +7,18 @@ package gui;
 import core.*;
 import java.io.File;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class PAXE extends javax.swing.JFrame {
 
-    public static final String version = "0.1.0";
+    public static final String version = "0.1.5";
     public static final String program_name = "PAXE";
     public Map curMap;
-
+    
+    //Also uses some map aspects interally for storage
+    
     /**
      * Creates new form PAXE
      */
