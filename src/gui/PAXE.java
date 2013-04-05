@@ -30,10 +30,10 @@ public class PAXE extends javax.swing.JFrame {
     }
 
     public void updateMapObj() {
-        curMap.setName(infoPanel2.getNameField());
-        curMap.setPGMVersion(infoPanel2.getPGMVersionField());
-        curMap.setVersion(infoPanel2.getVersionField());
-        curMap.setObjective(infoPanel2.getObjectiveField());
+        curMap.setName(pInfo.getNameField());
+        curMap.setPGMVersion(pInfo.getPGMVersionField());
+        curMap.setVersion(pInfo.getVersionField());
+        curMap.setObjective(pInfo.getObjectiveField());
     }
 
     public void load(File file) {
@@ -67,7 +67,7 @@ public class PAXE extends javax.swing.JFrame {
     private void initComponents() {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        infoPanel2 = new gui.InfoPanel();
+        pInfo = new gui.InfoPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItemNew = new javax.swing.JMenuItem();
@@ -83,7 +83,7 @@ public class PAXE extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(800, 600));
         getContentPane().setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
-        jTabbedPane1.addTab("tab1", infoPanel2);
+        jTabbedPane1.addTab("tab1", pInfo);
 
         getContentPane().add(jTabbedPane1);
 
@@ -210,7 +210,6 @@ public class PAXE extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private gui.InfoPanel infoPanel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -222,5 +221,6 @@ public class PAXE extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemSave;
     private javax.swing.JMenuItem jMenuItemSaveAs;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private gui.InfoPanel pInfo;
     // End of variables declaration//GEN-END:variables
 }

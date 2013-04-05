@@ -21,6 +21,7 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import region.*;
 import spawn.Kit;
 
 public class Map {
@@ -32,7 +33,8 @@ public class Map {
     public ComplexList<Team> teams;
     public ComplexList<Kit> kits;
     //TODO: priority queue for regions, need to put multiregion constructs after regular regions
-    public ComplexList filters, regions, spawns, portals;
+    public ComplexList<Region> regions;
+    public ComplexList filters, spawns, portals;
     public Element root;
     //rules, teams;
 
@@ -41,7 +43,7 @@ public class Map {
         rules = new ComplexList<Rule>("rules");
         teams = new ComplexList<Team>("teams");
         kits = new ComplexList<Kit>("kits");
-        regions = new ComplexList("regions");
+        regions = new ComplexList<Region>("regions");
         filters = new ComplexList("filters");
         spawns = new ComplexList("spawns");
         portals = new ComplexList("portals");

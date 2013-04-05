@@ -4,15 +4,23 @@
  */
 package gui;
 
+import core.Duplex;
 import java.util.ArrayList;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
 
 /**
  *
  * @author Skeptical_Tech
  */
 public class InfoPanel extends javax.swing.JPanel {
+    //An array list of Duplexed Strings; yes, it's ugly :P
 
-    public ArrayList<String> authors = new ArrayList<String>();
+    private ArrayList<Duplex<String, String>> authors = new ArrayList<>();
+    private ArrayList<Duplex<String, String>> contributors = new ArrayList<>();
+    private ArrayList<String> rules = new ArrayList<>();
+    //List Model
+    DefaultListModel<String> authormodel = new DefaultListModel<>();
 
     /**
      * Creates new form InfoPanel
@@ -53,6 +61,13 @@ public class InfoPanel extends javax.swing.JPanel {
     public void setObjectiveField(String txt) {
         ObjectiveField.setText(txt);
     }
+
+    public void updateAuthorList() {
+        AuthorList.removeAll(); //Clear list
+        for (Duplex<String, String> dup : authors) {
+            authormodel.addElement(dup.getFirst());
+        }
+    }
     /*
      * Input Dialog Methods and Variables
      */
@@ -79,7 +94,7 @@ public class InfoPanel extends javax.swing.JPanel {
                 break;
 
         }
-        if(edit){
+        if (edit) {
             Ok.setText(edit ? "Edit" : "False");
         }
         InputDialog.setVisible(true);
@@ -93,7 +108,6 @@ public class InfoPanel extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         InputDialog = new javax.swing.JDialog();
         InputDialogField1 = new javax.swing.JTextField();
@@ -103,31 +117,29 @@ public class InfoPanel extends javax.swing.JPanel {
         Ok = new javax.swing.JButton();
         Cancel = new javax.swing.JButton();
         BasicPanel = new javax.swing.JPanel();
+        AuthorPanel = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        AuthorList = new javax.swing.JList(authormodel);
+        AddAuthorButton = new javax.swing.JButton();
+        RemoveAuthorButton = new javax.swing.JButton();
+        EditAuthorButton = new javax.swing.JButton();
         NamePanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         NameField = new javax.swing.JTextField();
-        VersionPanel = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        VersionField = new javax.swing.JTextField();
         PGMVerPanel = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         PGMVersionField = new javax.swing.JTextField();
+        VersionPanel = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        VersionField = new javax.swing.JTextField();
         ObjectivePanel = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         ObjectiveField = new javax.swing.JTextArea();
-        RulesPanel = new javax.swing.JPanel();
-        AuthorPanel = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        AuthorList = new javax.swing.JList();
-        AddAuthorButton = new javax.swing.JButton();
-        RemoveAuthorButton = new javax.swing.JButton();
-        EditAuthorButton = new javax.swing.JButton();
 
         InputDialog.setMinimumSize(new java.awt.Dimension(400, 150));
         InputDialog.setModal(true);
-        InputDialog.setPreferredSize(new java.awt.Dimension(400, 150));
         InputDialog.setResizable(false);
 
         InputDialogField1.addActionListener(new java.awt.event.ActionListener() {
@@ -147,6 +159,11 @@ public class InfoPanel extends javax.swing.JPanel {
         InputDialogLabel2.setText("Contribution:");
 
         Ok.setText("Add");
+        Ok.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OkActionPerformed(evt);
+            }
+        });
 
         Cancel.setText("Cancel");
         Cancel.addActionListener(new java.awt.event.ActionListener() {
@@ -175,7 +192,7 @@ public class InfoPanel extends javax.swing.JPanel {
                         .addComponent(Ok)
                         .addGap(64, 64, 64)
                         .addComponent(Cancel)))
-                .addContainerGap(84, Short.MAX_VALUE))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
         InputDialogLayout.setVerticalGroup(
             InputDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,7 +205,7 @@ public class InfoPanel extends javax.swing.JPanel {
                 .addGroup(InputDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(InputDialogLabel2)
                     .addComponent(InputDialogField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
                 .addGroup(InputDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Ok)
                     .addComponent(Cancel))
@@ -196,83 +213,10 @@ public class InfoPanel extends javax.swing.JPanel {
         );
 
         setMinimumSize(new java.awt.Dimension(700, 500));
-        setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         BasicPanel.setLayout(new java.awt.GridBagLayout());
-
-        jLabel1.setText("Name:");
-        NamePanel.add(jLabel1);
-
-        NameField.setColumns(28);
-        NameField.setText("New Map");
-        NameField.setToolTipText("The name of the map.");
-        NameField.setMinimumSize(new java.awt.Dimension(150, 22));
-        NameField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NameFieldActionPerformed(evt);
-            }
-        });
-        NamePanel.add(NameField);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.ipady = 5;
-        BasicPanel.add(NamePanel, gridBagConstraints);
-
-        jLabel2.setText("Version:");
-        VersionPanel.add(jLabel2);
-
-        VersionField.setColumns(4);
-        VersionField.setText("1.0");
-        VersionField.setToolTipText("The version of the map");
-        VersionPanel.add(VersionField);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.ipady = 5;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        BasicPanel.add(VersionPanel, gridBagConstraints);
-
-        PGMVerPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
-
-        jLabel3.setText("PGM Version:");
-        PGMVerPanel.add(jLabel3);
-
-        PGMVersionField.setColumns(4);
-        PGMVersionField.setText("1.3.0");
-        PGMVersionField.setToolTipText("The Plugin Version (Currently 1.3.0).");
-        PGMVerPanel.add(PGMVersionField);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.ipady = 5;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        BasicPanel.add(PGMVerPanel, gridBagConstraints);
-
-        ObjectivePanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
-
-        jLabel4.setText("Objective:");
-        ObjectivePanel.add(jLabel4);
-
-        ObjectiveField.setColumns(35);
-        ObjectiveField.setRows(2);
-        jScrollPane1.setViewportView(ObjectiveField);
-
-        ObjectivePanel.add(jScrollPane1);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipady = 5;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        BasicPanel.add(ObjectivePanel, gridBagConstraints);
-
-        add(BasicPanel);
-        add(RulesPanel);
+        add(BasicPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 5, -1, -1));
 
         jLabel5.setText("Authors");
 
@@ -333,7 +277,59 @@ public class InfoPanel extends javax.swing.JPanel {
                     .addComponent(EditAuthorButton)))
         );
 
-        add(AuthorPanel);
+        add(AuthorPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 20, -1, -1));
+
+        jLabel1.setText("Name:");
+        NamePanel.add(jLabel1);
+
+        NameField.setColumns(28);
+        NameField.setText("New Map");
+        NameField.setToolTipText("The name of the map.");
+        NameField.setMinimumSize(new java.awt.Dimension(150, 22));
+        NameField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NameFieldActionPerformed(evt);
+            }
+        });
+        NamePanel.add(NameField);
+
+        add(NamePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, 34));
+
+        PGMVerPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+
+        jLabel3.setText("PGM Version:");
+        PGMVerPanel.add(jLabel3);
+
+        PGMVersionField.setColumns(4);
+        PGMVersionField.setText("1.3.0");
+        PGMVersionField.setToolTipText("The Plugin Version (Currently 1.3.0).");
+        PGMVerPanel.add(PGMVersionField);
+
+        add(PGMVerPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, 34));
+
+        jLabel2.setText("Map Version:");
+        VersionPanel.add(jLabel2);
+
+        VersionField.setColumns(4);
+        VersionField.setText("1.0");
+        VersionField.setToolTipText("The version of the map");
+        VersionPanel.add(VersionField);
+
+        add(VersionPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 60, -1, 34));
+
+        ObjectivePanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+
+        jLabel4.setText("Objective:");
+        jLabel4.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        ObjectivePanel.add(jLabel4);
+
+        ObjectiveField.setColumns(26);
+        ObjectiveField.setRows(2);
+        jScrollPane1.setViewportView(ObjectiveField);
+
+        ObjectivePanel.add(jScrollPane1);
+
+        add(ObjectivePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 370, 48));
     }// </editor-fold>//GEN-END:initComponents
 
     private void NameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NameFieldActionPerformed
@@ -369,6 +365,39 @@ public class InfoPanel extends javax.swing.JPanel {
     private void InputDialogField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InputDialogField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_InputDialogField1ActionPerformed
+
+    private void OkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OkActionPerformed
+        if (InputDialogField1.getText() != "") {
+            if (dialog_mode == 2) { //Rule mode
+                if (dialog_edit == true) {
+                    //TODO
+                } else {
+                    //TODO
+                }
+            } else { //It's an author or contributor
+                Duplex<String, String> tempdup = new Duplex<>(InputDialogField1.getText(), InputDialogField2.getText());
+                //Generate reference to the appropriate ArrayList and JList
+                ArrayList<Duplex<String, String>> arraydup;
+                JList tempList;
+                if (dialog_mode == 0) { //Author
+                    arraydup = authors;
+                    tempList = AuthorList;
+                } else {
+                    arraydup = contributors;
+                    tempList = AuthorList; //TODO, fix when contributor panel added
+                }
+                //Now check if in edit mode
+                if (dialog_edit) {
+                    arraydup.set(tempList.getSelectedIndex(), tempdup);
+                } else {
+                    arraydup.add(tempdup);
+                }
+                updateAuthorList();
+            }
+            //Now determine which 
+        }
+
+    }//GEN-LAST:event_OkActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddAuthorButton;
     private javax.swing.JList AuthorList;
@@ -389,7 +418,6 @@ public class InfoPanel extends javax.swing.JPanel {
     private javax.swing.JPanel PGMVerPanel;
     private javax.swing.JTextField PGMVersionField;
     private javax.swing.JButton RemoveAuthorButton;
-    private javax.swing.JPanel RulesPanel;
     private javax.swing.JTextField VersionField;
     private javax.swing.JPanel VersionPanel;
     private javax.swing.JLabel jLabel1;
