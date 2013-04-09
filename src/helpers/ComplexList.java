@@ -3,7 +3,7 @@
  * Used for section tags
  */
 
-package core;
+package helpers;
 
 import helpers.*;
 import java.util.*;

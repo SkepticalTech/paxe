@@ -3,6 +3,7 @@
  */
 package core;
 
+import helpers.ComplexList;
 import info.*;
 import gui.*;
 import com.thoughtworks.xstream.*;
