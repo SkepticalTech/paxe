@@ -18,18 +18,22 @@ package spawn;
 
 import helpers.ComplexList;
 import helpers.IOutputtable;
+import info.Team;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import region.Region;
 
 public class SpawnsList<Spawn> extends ComplexList implements IOutputtable {
+
     private Region default_region;
     private int default_yaw;
-    
-    public SpawnsList(){
+    private Team team;
+
+    public SpawnsList() {
         super("spawns");
     }
-    public SpawnsList(Region def_spawn, int def_yaw){
+
+    public SpawnsList(Region def_spawn, int def_yaw) {
         this();
         setDefault_region(def_spawn);
         setDefault_yaw(def_yaw);
@@ -62,14 +66,30 @@ public class SpawnsList<Spawn> extends ComplexList implements IOutputtable {
     public void setDefault_yaw(int default_yaw) {
         this.default_yaw = default_yaw;
     }
-    
-    public Element output(Document doc){
+
+    public Element output(Document doc) {
         Element main = super.output(doc);
+        if (team != null) {
+            main.setAttribute("team", team.getName());
+        }
         Element dspawn = doc.createElement("default");
         dspawn.setAttribute("yaw", String.valueOf(default_yaw));
         dspawn.appendChild(default_region.output(doc));
         main.appendChild(dspawn);
         return main;
     }
-    
+
+    /**
+     * @return the team
+     */
+    public Team getTeam() {
+        return team;
+    }
+
+    /**
+     * @param team the team to set
+     */
+    public void setTeam(Team team) {
+        this.team = team;
+    }
 }

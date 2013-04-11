@@ -16,9 +16,17 @@ public class Spawn implements IOutputtable {
     private Team team;
     private Kit kit;
     private Region region;
+    private boolean safe;
+    
+    public Spawn(){
+        
+    }
 
     public Element output(Document doc) {
         Element main = doc.createElement("spawn");
+        if(safe){
+            main.setAttribute("safe", "true");
+        }
         if (team != null) {
             main.setAttribute("team", team.getName());
         }
@@ -83,5 +91,19 @@ public class Spawn implements IOutputtable {
      */
     public void setRegion(Region region) {
         this.region = region;
+    }
+
+    /**
+     * @return the safe
+     */
+    public boolean isSafe() {
+        return safe;
+    }
+
+    /**
+     * @param safe the safe to set
+     */
+    public void setSafe(boolean safe) {
+        this.safe = safe;
     }
 }
