@@ -27,6 +27,7 @@ public class Predefined extends Filter{
 
     public Predefined(String val) {
         this.value = val;
+        //TODO: giant loop for setting attributes
     }
 
     /**

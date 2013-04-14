@@ -19,6 +19,7 @@ package filters;
 
 public class Filter {
     protected String name;
+    protected Filter parent;
 
     /**
      * @return the name
