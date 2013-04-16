@@ -1,0 +1,45 @@
+ 
+ #General
+ Imports will be condensed using * when possible
+ 
+ All class member variables are encapsulated whenever possible
+ 
+ Private global member variables are formatted as follows: thisvariable
+ 
+ Variables local to methods are formatted as follows: this_variable or foo
+ 
+ Methods are formatted as follows: thisMethod()
+ 
+ Set method parameters will be named the same as the variable they will be setting,
+ and will set with this.variable
+ 
+ #Class formatting
+ 1) variables
+ 2) Constructors, parameterless then parameters, going from less to more complex
+ 3) Set/Get methods
+ 4) other methods
+ 
+ Note: Output method should usually be last
+ 
+ 
+ *Exceptions
+ The map class will permit public access to its member ComplexLists for convienence (ComplexLists must error check themselves)
+ 
+ #Class Comments
+ Format with Javadoc comments as
+
+ imports
+ /** 
+ * Concise description (1 sentence if possible). More info after if neccesary
+ *@author Skeptical_Tech
+ *(will try omitting->)@version 1 (will not keep track of file version, Git can do that itself)
+ *@license Gnu Public License v3 (http://www.gnu.org/licenses/lgpl.html)
+ *
+ */
+ 
+ #Method comments
+ /**
+ * Concise Description (shoot for 1 sentence). More if neccesary
+ */
+ 
+ Note: Try to make code self-documenting as much as is reasonable

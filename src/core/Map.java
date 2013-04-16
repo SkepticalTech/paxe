@@ -1,86 +1,159 @@
-/*
- * Copyright (C) 2013 Skeptical_Tech
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-/*
- * The main map class, holds all of the information needed to make the map.xml
- */
 package core;
 
-import helpers.ComplexList;
+import helpers.*;
 import info.*;
 import gui.*;
+import region.*;
+import spawn.*;
+import filters.*;
 import com.thoughtworks.xstream.*;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
-import helpers.TNode;
-import java.io.File;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
+import java.io.*;
+import javax.xml.parsers.*;
+import org.w3c.dom.*;
+import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import region.*;
-import spawn.Kit;
 
+/**
+ * The main map class, representing the entire PGM map as a Java data structure.
+ * Data acquired from a GUI (or other) source can be stored here, and outputted
+ * as properly formatted XML.
+ *
+ * @author Skeptical_Tech
+ * @license Gnu Public License v3 (http://www.gnu.org/licenses/lgpl.html)
+ */
 public class Map {
 
-    protected String name, objective, version, PGMVersion;
-    public ComplexList<Author> authors = new ComplexList("authors");
+    private String name, objective, version, PGMVersion;
+    public ComplexList<Author> authors;
     public ComplexList<Author> contributors;
     public ComplexList<Rule> rules;
     public ComplexList<Team> teams;
     public ComplexList<Kit> kits;
     //TODO: priority queue for regions, need to put multiregion constructs after regular regions
     public ComplexList<Region> regions;
-    public ComplexList filters, spawns, portals;
-    public Element root;
-    //rules, teams;
+    public ComplexList<Filter> filters;
+    public ComplexList<Spawn> spawns;
+    public ComplexList<Portal> portals;
+    private Element root;
 
+    /**
+     * Constructs a Map object. The various ComplexLists represent major XML
+     * elements.
+     */
     public Map() {
-        contributors = new ComplexList<Author>("contributors");
-        rules = new ComplexList<Rule>("rules");
-        teams = new ComplexList<Team>("teams");
-        kits = new ComplexList<Kit>("kits");
-        regions = new ComplexList<Region>("regions");
-        filters = new ComplexList("filters");
-        spawns = new ComplexList("spawns");
-        portals = new ComplexList("portals");
-
+        authors = new ComplexList<>("authors");
+        contributors = new ComplexList<>("contributors");
+        rules = new ComplexList<>("rules");
+        teams = new ComplexList<>("teams");
+        kits = new ComplexList<>("kits");
+        regions = new ComplexList<>("regions");
+        filters = new ComplexList<>("filters");
+        spawns = new ComplexList<>("spawns");
+        portals = new ComplexList<>("portals");
     }
-    //Calls the output() of the given Complex List if it is not empty
 
-    private void outputIfPopulated(ComplexList li, Document doc, Element elem) {
-        if (!li.isEmpty()) {
-            elem.appendChild(li.output(doc));
+    /**
+     * Constructs a map object and assigns a name.
+     *
+     * @param name The name of the map
+     */
+    public Map(String name) {
+        this();
+        setName(name);
+    }
+
+    /**
+     * Returns the name of the map.
+     *
+     * @return the name of the map.
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Sets the name of the map.
+     *
+     * @param name the name of the map
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * Returns the map objective.
+     * 
+     * @return the objective
+     */
+    public String getObjective() {
+        return objective;
+    }
+    
+    /**
+     * Sets the map objective
+     * 
+     * @param objective the objective
+     */
+    public void setObjective(String objective) {
+        this.objective = objective;
+    }
+
+    /**
+     * Returns the version of the map.
+     * 
+     * @return the version of the map (as a string)
+     */
+    public String getVersion() {
+        return version;
+    }
+
+    /**
+     * Sets the version of the map.
+     * 
+     * @param version the version of the map (as a string)
+     */
+    public void setVersion(String version) {
+        this.version = version;
+    }
+
+    /**
+     * Returns the version of the PGM plugin this map is intended to run on.
+     * 
+     * @return the PGM plugin version
+     */
+    public String getPGMVersion() {
+        return PGMVersion;
+    }
+
+    /**
+     * Sets the version of the PGM plugin this map is intended to run on.
+     * 
+     * @param PGMVersion the PGM plugin version
+     */
+    public void setPGMVersion(String PGMVersion) {
+        this.PGMVersion = PGMVersion;
+    }
+
+    //Calls the output() of the given Complex List if it is not empty
+    private void outputIfPopulated(ComplexList list, Document doc, Element elem) {
+        if (!list.isEmpty()) {
+            elem.appendChild(list.output(doc));
         }
     }
-    //Starts the xml writing process, and spits it out to a file
-
+    
+    /**
+     * The main XML generation method. It turns the object into PGM-compatible
+     * XML (as a string), calling the output methods of it's child ComplexLists.
+     * 
+     * @param loc the file path to output the XML to
+     */
     public void output(String loc) {
         try {
-            DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-            Document doc = docBuilder.newDocument();
+            DocumentBuilderFactory doc_factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder doc_builder = doc_factory.newDocumentBuilder();
+            Document doc = doc_builder.newDocument();
 
             root = doc.createElement("map");
             root.setAttribute("proto", getPGMVersion());
@@ -122,44 +195,18 @@ public class Map {
         } catch (ParserConfigurationException pce) {
             pce.printStackTrace();
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(e); //TODO better error handling
         }
     }
-    //Returns a String of serialized XML for saving purposes
-    public String serializeXml(){
-        XStream xstream = new XStream(new StaxDriver());
-        return xstream.toXML(this);
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getObjective() {
-        return objective;
-    }
-
-    public void setObjective(String objective) {
-        this.objective = objective;
-    }
-
-    public String getVersion() {
-        return version;
-    }
-
-    public void setVersion(String version) {
-        this.version = version;
-    }
-
-    public String getPGMVersion() {
-        return PGMVersion;
-    }
-
-    public void setPGMVersion(String PGMVersion) {
-        this.PGMVersion = PGMVersion;
+    
+    /**
+     * Converts the Map object into a serialized XML string.
+     * This does not generate the PGM compatible XML, it is just for saving and
+     * loading purposes
+     * 
+     * @return the map as a serialized XML string
+     */
+    public String serializeXml() {
+        return new XStream(new StaxDriver()).toXML(this);
     }
 }
